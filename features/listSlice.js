@@ -10,7 +10,8 @@ export const listSlice = createSlice({
       state.value.push(task.payload);
     },
     toDelete: (state, task) => {
-      delete state.value[task.payload];
+      state.value.splice(task.payload, 1);
+      console.log(state.value)
     },
   },
 });
