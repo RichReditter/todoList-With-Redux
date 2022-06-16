@@ -8,20 +8,37 @@ function App() {
   const [task, setTask] = useState("");
   const tasks = useSelector((state) => state.list.value);
   const dispatch = useDispatch();
-  console.log(tasks);
+
   function updateValue(event) {
     setTask(event.target.value);
   }
-  let myTimeOut;
   function deleteTask(id) {
     dispatch(toDelete(id));
   }
+  function checkTask(task) {
+    if (task.length > 0 && !tasks.includes(task)) {
+      dispatch(toAdd(task));
+    } else {
+      if (task.length === 0) {
+        alert("Задача не может быть пустой. Попробуйте снова...");
+      } else if (tasks.includes(task)) {
+        alert(
+          "Задача не может повторяться. Она уже есть в списке. Попробуйте снова..."
+        );
+      }
+    }
+    handleClear();
+  }
+  const handleClear = () => {
+    setTask("");
+  };
   return (
     <React.Fragment>
       <div className="App">
         <div id="myDIV" className="header">
           <h2>My To Do List</h2>
           <input
+            value={task}
             type="text"
             id="myInput"
             placeholder="enter your task :)"
@@ -30,9 +47,7 @@ function App() {
           <span
             className="addBtn"
             onClick={() => {
-              task.length
-                ? dispatch(toAdd(task))
-                : alert("поле задачи не должна быть пустой");
+              checkTask(task);
             }}
           >
             Add
@@ -40,7 +55,6 @@ function App() {
         </div>
 
         <ul id="myUL">
-          {/* <List tasks={tasks} onUpdateTasks = {deleteTask}/> */}
           {tasks.map((task, i) => (
             <Li key={i} number={i} task={task} onUpdateTasks={deleteTask} />
           ))}
