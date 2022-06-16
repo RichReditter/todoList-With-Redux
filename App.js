@@ -3,12 +3,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { toAdd, toDelete } from "./features/listSlice.js";
 import "./App.css";
 import Li from "./Li.js";
+import Alert from "react-bootstrap/Alert";
 
 function App() {
   const [task, setTask] = useState("");
   const tasks = useSelector((state) => state.list.value);
+  const [ifError, setIfError] = useState(false);
+  const [message, setMessage] = useState("");
   const dispatch = useDispatch();
 
+  function alertMessage(message) {
+    <Alert variant="danger">{message}</Alert>;
+  }
   function updateValue(event) {
     setTask(event.target.value);
   }
@@ -17,12 +23,17 @@ function App() {
   }
   function checkTask(task) {
     if (task.length > 0 && !tasks.includes(task)) {
+      setIfError(false);
+      setMessage("Задача добавилась успешно!");
       dispatch(toAdd(task));
     } else {
       if (task.length === 0) {
-        alert("Задача не может быть пустой. Попробуйте снова...");
+        setIfError(true);
+        setMessage("Задача не может быть пустой. Попробуйте снова...");
+
       } else if (tasks.includes(task)) {
-        alert(
+        setIfError(true);
+        setMessage(
           "Задача не может повторяться. Она уже есть в списке. Попробуйте снова..."
         );
       }
@@ -32,6 +43,7 @@ function App() {
   const handleClear = () => {
     setTask("");
   };
+
   return (
     <React.Fragment>
       <div className="App">
@@ -41,6 +53,7 @@ function App() {
             value={task}
             type="text"
             id="myInput"
+            className = {ifError ? "error" :"completed"}
             placeholder="enter your task :)"
             onChange={updateValue}
           />
@@ -53,6 +66,7 @@ function App() {
             Add
           </span>
         </div>
+        {ifError && <Alert variant="danger">{message}</Alert>}
 
         <ul id="myUL">
           {tasks.map((task, i) => (

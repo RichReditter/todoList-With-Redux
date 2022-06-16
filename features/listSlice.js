@@ -11,7 +11,6 @@ export const listSlice = createSlice({
     },
     toDelete: (state, task) => {
       state.value.splice(task.payload, 1);
-      console.log(state.value)
     },
   },
 });

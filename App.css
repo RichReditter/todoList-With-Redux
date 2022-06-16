@@ -9,6 +9,40 @@ ul {
   padding: 0;
 }
 
+.completed{
+  border: 2px transparent rgb(58, 245, 114);
+  background-color: #fff;
+}
+.error{
+  background-color: rgb(243, 182, 182);
+
+}
+
+.hidden{
+  display: none;
+}
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+.show{
+  display: block;
+}
 /* Style the list items */
 ul li {
   cursor: pointer;
