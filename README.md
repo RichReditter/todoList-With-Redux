@@ -1,6 +1,6 @@
 # todoList-With-Redux
 
-to clone this App into your computer you should create a free folder
+to clone this App into your computer you should create an empty folder
 
 then you must open this folder in IDE and in Terminal paste: npx create-react-app my-app --template redux
 
